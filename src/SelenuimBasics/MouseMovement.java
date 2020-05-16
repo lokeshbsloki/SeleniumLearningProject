@@ -4,14 +4,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
 
-public class DropBoxHandle {
-
-	
-	public static void main(String[] args) {
+public class MouseMovement {
+	public static void main(String[] args) throws Exception {
 		
 		System.setProperty("webdriver.chrome.driver", "G:\\Selenium\\chromedriver.exe");
 		WebDriver driver=new ChromeDriver();
@@ -19,9 +16,12 @@ public class DropBoxHandle {
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("https://www.spicejet.com/default.aspx");
-		WebElement element = driver.findElement(By.xpath("//select[@id='ctl00_mainContent_DropDownListCurrency']"));
-		Select select = new Select(element);
-		select.selectByVisibleText("INR");
+		driver.get("https://www.makemytrip.com/flights/");
+		
+	    Actions action = new Actions(driver);
+	    action.moveToElement(driver.findElement(By.xpath("//span[@class='darkGreyText']"))).build().perform();
+	    Thread.sleep(3000);
+	    driver.findElement(By.xpath("//a[text()='My Biz']")).click();
 	}
+
 }

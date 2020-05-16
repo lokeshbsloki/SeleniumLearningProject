@@ -4,13 +4,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
 
-public class DropBoxHandle {
+public class DragAndDrop {
 
-	
 	public static void main(String[] args) {
 		
 		System.setProperty("webdriver.chrome.driver", "G:\\Selenium\\chromedriver.exe");
@@ -19,9 +17,13 @@ public class DropBoxHandle {
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("https://www.spicejet.com/default.aspx");
-		WebElement element = driver.findElement(By.xpath("//select[@id='ctl00_mainContent_DropDownListCurrency']"));
-		Select select = new Select(element);
-		select.selectByVisibleText("INR");
+		driver.get("https://jqueryui.com/droppable/");
+		
+		driver.switchTo().frame(0);
+		Actions action = new Actions(driver);
+		action.clickAndHold(driver.findElement(By.xpath("//div[@id='draggable']")))
+		      .moveToElement(driver.findElement(By.xpath("//div[@id='droppable']")))
+		      .release()
+		      .build().perform();
 	}
 }
